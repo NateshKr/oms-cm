@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+	      <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg \(%file:%line\)%n</Pattern>
+	    </layout>
+		
+		<file>/var/log/moglix/platform/oms-cm/omscm.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/var/log/moglix/platform/oms-cm/omscm-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			 <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        		<MaxFileSize>50MB</MaxFileSize>
+      		</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+				
+		<append>true</append>
+	</appender>
+
+	
+	<logger name="org.apache" level="ERROR" />
+	<logger name="org.springframework" level="ERROR" />
+	<logger name="org.springframework.web" level="INFO" />
+	<logger name="org.hibernate.SQL" level="ERROR" />
+	<logger name="org.springframework.beans.factory.config" level="INFO" />
+
+	<!-- application specific -->
+	<logger name="com.moglix" level="DEBUG" additivity="false">
+		<appender-ref ref="FILE" />
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="FILE" />
+	</root>
+
+</configuration>
